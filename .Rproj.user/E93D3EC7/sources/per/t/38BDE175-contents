@@ -1,0 +1,44 @@
+CA <- function(nmax) {
+  if (nmax > 2) {
+    cat("2 ")
+  }
+  if (nmax > 3) {
+    cat("3 ")
+  }
+  crible <- rep(FALSE, nmax)
+  x <- 1
+  while (x * x < nmax) {
+    y <- 1
+    while (y * y < nmax) {
+      n <- (4 * x * x) + (y * y)
+      if (n <= nmax && (n %% 12 == 1 || n %% 12 == 5)) {
+        crible[n] <- !crible[n]
+      }
+      n <- (3 * x * x) + (y * y)
+      if (n <= nmax && n %% 12 == 7) {
+        crible[n] <- !crible[n]
+      }
+      n <- (3 * x * x) - (y * y)
+      if (x > y && n <= nmax && n %% 12 == 11) {
+        crible[n] <- !crible[n]
+      }
+      y <- y + 1
+    }
+    x <- x + 1
+  }
+  r <- 5
+  while (r * r < nmax) {
+    for (i in seq(r * r, nmax, by = r * r)) {
+      crible[i] <- FALSE
+    }
+    r <- r + 1
+  }
+  for (a in 5:nmax) {
+    if (crible[a]) {
+      cat(a, " ")
+    }
+  }
+}
+
+CA(60)
+

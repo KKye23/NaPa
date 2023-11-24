@@ -1,0 +1,51 @@
+library("ggplot2")
+library(MASS)
+library("directlabels")
+ ggplot(economics,aes(unemploy/pop,uempimed))+geom_path()+geom_point()
+ 
+ggplot(mpg,aes(cty,hwy))+geom_point(alpha= 1/3)+xlab(label=5)+ylab(label=5)
+
+ggplot(mpg,aes(cty,hwy))+geom_point(alpha=1/3)+ xlab("city driving(mpg)")+ylab("highway driving(mpg)")
+ggplot(mpg,aes(drv,hwy))+geom_jitter(width=0.5)
+ggplot(mpg,aes(drv,hwy))+geom_jitter(width=0.25,na.rm=TRUE)+ylim(NA,30)
+
+p <-ggplot(mpg,aes(dspl,hwy,color=factor(cy()))+ geom_point()
+print(p)
+
+ggsave("plot.png",width = 5,height = 5)
+summary
+
+df <- data.frame(x=c(3,1,5),y=c(2,4,6),label=c("a","b","c"))
+df
+p <- ggplot(df,aes(x,y,label=label))+ labs(x=NULL,y=NULL)+theme(plot.title = element_text(size=12))
+p
+p +geom_point()+ggtitle("point")
+p+geom_text()+ ggtitle("text")
+p+ geom_bar(stat = "identity")+ ggtitle("bar")
+p+geom_tile()+ggtitle("doster")
+p+geom_line()+ggtitle("line")
+p+geom_area()+ggtitle("area")
+p+geom_polygon()+ggtitle("polygon")
+p+geom_path()+ggtitle("path")
+ggplot(mpg,aes(displ,hwy,color=class))+ geom_point()
+ggplot(mpg,aes(displ,hwy,color=class))+geom_point(show.legend = FALSE)+directlabels::geom_dl(aes(label=class),method="smart.grid")
+
+library("tidyverse")
+library("gapminder")
+library("ggridges")
+library("patchwork")
+library("viridis")
+library("hrbrthemes")
+
+theme_set(theme_bw())
+
+gapminder %>%
+  filter(continent%in% c("Africa","Europe","Asia"))%>%
+  filter(gdpPercap <30000)%>%
+  ggplot(aes(x=gdpPercap,y=lifeExp)+geom_point(size=pop,color=year))+facet_wrap(facets="continent")+
+  labs(title="Life expectancy explained by GDP per capita",x ="GDP per capita",y="Life expectancy")
+
+library(ggplot2)
+ggplot(economics,aes(unemploy/pop,date))+geom_contour()
+
+ggplot(economics,aes(date,pop,color=pce))+geom_volc

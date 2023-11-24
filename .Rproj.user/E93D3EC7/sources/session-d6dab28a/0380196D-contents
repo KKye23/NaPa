@@ -1,0 +1,23 @@
+library(ggplot2)
+
+data(packages="ggplot2")
+ggplot(txhousing,aes(sales,city,color=city))+geom_point()
+library(tidyverse)
+library(ggridges)
+library(viridis)
+library(patchwork)
+library(hrbrthemes)
+library(gapminder)
+
+txhousing %>%
+filter(city %in% c("Abilene","Amarillo")) %>%
+filter(sales < 30000)  %>%
+ggplot(aes(x=sales,y=year,color=year))+
+geom_point()+
+facet_wrap(~city)+
+labs(title="salaire par rapport aux années",x="sales",y="year")
+
+starwars %>%
+  select(name,mass,gender) %>%
+  head()
+data(packages="ggplot2")

@@ -1,0 +1,32 @@
+
+billionaires <- read.csv(file ="Billionaires_Statistics_Dataset.csv",header = FALSE,sep=";")#uvre le fichier csv dans l'objet billionare
+billionaires
+head(billionaires)# 1ere facon d'afficher les données dans le dataset billionaire
+print(billionaires)# 2ieme facon d'afficher les données
+
+billionaires %>%
+  select(... = billionaires)%>%
+head()
+library(ggplot2)
+library(tidyverse)
+
+theme_set(theme_bw())
+billionaires %>% # represente un scatter plot de milliadaures des usa et de la choine en fonction de leur age
+  filter(billionaires %in% c("united States","China"))%>%
+  filter(rank < 10000 ) %>%
+  ggplot(billionaires,aes(country,age,color=industrie))+
+  geom_point()+
+  facet_wrap(~billionaires)
+  
+print[billionaires=c("rank","personName","country","country0fCitizenship","gdp_country","finalWorth")] 
+library(ggplot2)
+ggplot(diamonds,aes(depth,fill=cut,color=cut))+# ce graphe ùet en relief le depth en fonction des densités avec une limites d'abscisses de 68 via u pas de .2
+  geom_density(alpha=0.2,na.rm = TRUE)+xlim(58,68)+
+  theme(legend.position="none")
+
+data(package="ggplot2")#1ee facon
+
+help(ggplot2)
+print [ggpot2=] 
+
+plot(billionaires,aes(x =rank,y=age))+geom

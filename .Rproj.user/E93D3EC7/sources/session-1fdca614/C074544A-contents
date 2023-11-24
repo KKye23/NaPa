@@ -1,0 +1,5 @@
+library(NaPa)
+ 
+?NaPa
+help(NaPa)
+??NaPa

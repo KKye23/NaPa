@@ -1,0 +1,41 @@
+# Fonction pour générer une paire de clés RSA
+RSAkeygen <- function(num_bits) {
+  p <-CA(50)
+
+  #p1 <- max(p)
+  #print(p1)
+  q <- CA(20)
+  n <- p * q
+  n
+  phi <- (p - 1) * (q - 1)
+  e <- nextprime(as.bigz(2) ^ (num_bits / 4))
+  d <- invmod(e, phi)
+  pubkey <- list(n = n, e = e, id = "RSA")
+  privkey <- list(n = n, d = d, id = "RSA")
+  list(pubkey = pubkey, privkey = privkey)
+}
+RSAkeygen(20)
+
+# Fonction pour crypter un message avec la clé publique RSA
+RSAcrypt <- function(message, pubkey, session_key) {
+  M <- as.bigz(charToRaw(message))
+  n <- pubkey$n
+  e <- pubkey$e
+  session_key <- as.bigz(charToRaw(session_key))
+  S <- as.bigz(charToRaw("session key"))
+  C1 <- powmod(session_key, e, n)
+  C2 <- powmod(M, S, n)
+  list(C1 = C1, C2 = C2)
+}
+
+# Fonction pour décrypter un message crypté avec la clé privée RSA
+RSAdecrypt <- function(ciphertext, privkey) {
+  C1 <- ciphertext$C1
+  C2 <- ciphertext$C2
+  n <- privkey$n
+  d <- privkey$d
+  session_key <- powmod(C1, d, n)
+  S <- as.bigz(charToRaw("session key"))
+  M <- powmod(C2, S, n)
+  rawToChar(as.raw(as.vector(M)))
+}

@@ -1,0 +1,32 @@
+keys <- RSAkeygen(num_bits )
+
+# Convertir la phrase à crypter ou décrypter en une séquence de nombres
+phrase <- "Bonjour, comment allez-vous ?"
+sequence <- charToRaw(phrase)
+sequence
+# Diviser la séquence de nombres en blocs
+taille_bloc <- length(keys$pubkey) - 1
+blocs <- split(sequence, rep(1:(length(sequence) %/% taille_bloc), each = taille_bloc))
+
+# Crypter ou décrypter chaque bloc
+resultats <- list()
+for (i in 1:length(blocs)) {
+  # Calculer le nombre premier le plus proche de la racine carrée du bloc
+  p <- CA(as.numeric(blocs[[i]]))
+
+  # Calculer la clé de session
+  session_key <- paste(keys$pubkey$id, p, sep = "")
+
+  # Crypter ou décrypter le bloc
+  if (is.null(resultats)) {
+    resultats <- RSAcrypt(blocs[[i]], keys$pubkey, session_key)
+  } else {
+    resultats <- c(resultats, RSAcrypt(blocs[[i]], keys$pubkey, session_key))
+  }
+}
+
+# Concaténer les blocs cryptés ou décryptés pour former la phrase cryptée ou décryptée
+
+resultat_final <- rawToChar(do.call(c, resultats))
+
+print(resultat_final)

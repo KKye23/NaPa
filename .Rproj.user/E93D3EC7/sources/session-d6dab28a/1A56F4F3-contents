@@ -1,0 +1,2 @@
+vecteur <- scan(nmax = 5)
+vecteur
